@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian TIK Kelas 3 - File dan Folder</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+
+        /* HEADER & TITLE */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #1a365d;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #e2e8f0;
+            margin: 16px 0 20px 0;
+        }
+
+        /* TATA TERTIB CARD (AKSEN ORANYE) */
+        .rules-card {
+            background-color: #fffdf5;
+            border: 1px solid #fbd38d;
+            border-left: 5px solid #dd6b20;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+        }
+
+        .rules-card h3 {
+            font-size: 15px;
+            color: #c05621;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .rules-card ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .rules-card li {
+            font-size: 13.5px;
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+
+        /* IDENTITAS CARD (AKSEN BIRU) */
+        .identity-card {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #3182ce;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 6px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 14px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: #ffffff;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+        }
+
+        /* BUTTONS */
+        .btn-primary {
+            width: 100%;
+            background-color: #3182ce;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #2b6cb0;
+        }
+
+        .btn-secondary {
+            background-color: #edf2f7;
+            color: #4a5568;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
+        }
+
+        /* QUIZ PAGE STYLES */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ebf8ff;
+            border: 1px solid #bee3f8;
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin-bottom: 18px;
+        }
+
+        .quiz-header .student-info {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #2b6cb0;
+        }
+
+        .quiz-header .question-count {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2c5282;
+            background: #ffffff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid #bee3f8;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a202c;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: #f8fafc;
+        }
+
+        .option-item:hover {
+            background-color: #edf2f7;
+            border-color: #cbd5e0;
+        }
+
+        .option-item.selected {
+            background-color: #ebf8ff;
+            border-color: #3182ce;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 12px;
+            accent-color: #3182ce;
+            width: 16px;
+            height: 16px;
+        }
+
+        .option-item label {
+            font-size: 13.5px;
+            color: #2d3748;
+            cursor: pointer;
+            width: 100%;
+            line-height: 1.4;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        /* RESULT & PRACTICAL INSTRUCTION PAGE */
+        .result-card {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .practice-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-left: 5px solid #38a169;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .practice-box h3 {
+            color: #276749;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .practice-box ol {
+            padding-left: 20px;
+        }
+
+        .practice-box li {
+            font-size: 14px;
+            color: #2d3748;
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER KANONIKAL -->
+        <div class="header">
+            <h1>Ujian TIK Kelas 3</h1>
+            <p>Materi: Pemahaman Dasar File dan Folder</p>
+        </div>
+        <div class="divider"></div>
+
+        <!-- HALAMAN 1: IDENTITAS DAN TATA TERTIB -->
+        <div id="page-start">
+            <div class="rules-card">
+                <h3>📋 Tata Tertib Ujian:</h3>
+                <ul>
+                    <li>Isi Identitas Diri (Nama, Kelas, dan Nomor Absen) dengan benar.</li>
+                    <li>Ujian Teori terdiri dari 30 Soal Pilihan Ganda (satu halaman satu soal).</li>
+                    <li>Pilihlah satu jawaban yang paling tepat dan teliti.</li>
+                    <li>Setelah selesai Teori, persiapkan diri untuk **Babak Praktik** di komputer sekolah.</li>
+                </ul>
+            </div>
+
+            <div class="identity-card">
+                <div class="form-group">
+                    <label for="student-name">Nama Lengkap Siswa:</label>
+                    <input type="text" id="student-name" placeholder="Masukkan nama lengkap kamu...">
+                </div>
+
+                <div class="form-group">
+                    <label for="student-class">Kelas:</label>
+                    <select id="student-class">
+                        <option value="">-- Pilih Kelas --</option>
+                        <option value="3A">Kelas 3A</option>
+                        <option value="3B">Kelas 3B</option>
+                        <option value="3C">Kelas 3C</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="student-absent">Nomor Absen:</label>
+                    <input type="number" id="student-absent" placeholder="Contoh: 12">
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="startExam()">Mulai Ujian Teori</button>
+        </div>
+
+        <!-- HALAMAN 2: SOAL UJIAN (1 PAGE 1 SOAL) -->
+        <div id="page-quiz" class="hidden">
+            <div class="quiz-header">
+                <div class="student-info" id="display-student-info">Nama Siswa (Kelas)</div>
+                <div class="question-count" id="display-question-number">Soal 1 dari 30</div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text" id="question-text">Teks pertanyaan...</div>
+                <div class="options-list" id="options-container"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-secondary" id="btn-prev" onclick="prevQuestion()">⬅️ Sebelumnya</button>
+                <button class="btn-primary" id="btn-next" style="width: auto; padding: 10px 24px;" onclick="nextQuestion()">Selanjutnya ➡️</button>
+                <button class="btn-primary hidden" id="btn-submit" style="width: auto; padding: 10px 24px; background-color: #38a169;" onclick="submitExam()">Selesai Teori 🚀</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 3: PETUNJUK PRAKTEK (TANPA NILAI) -->
+        <div id="page-result" class="hidden">
+            <div class="result-card">
+                <h2>Ujian Teori Selesai! 🎉</h2>
+                <p id="send-status" style="font-size: 14px; color: #3182ce; font-weight: 600; margin-top: 6px;">Menyimpan jawaban ke sistem...</p>
+
+                <div class="practice-box">
+                    <h3>💻 BABAK 2: Praktik di Komputer Sekolah</h3>
+                    <p style="font-size: 13.5px; color: #4a5568; margin-bottom: 10px;">Silakan buka <strong>File Explorer</strong> di komputer masing-masing dan lakukan langkah berikut:</p>
+                    <ol>
+                        <li>Buka <strong>Data (D:)</strong>.</li>
+                        <li>Buatlah satu <strong>Folder Baru di dalam Folder Kelas 3C TIK</strong> dan beri nama: <code>Tugas_NamaKamu, misal Tugas_Tobi</code>.</li>
+                        <li>Buat satu file txt baru di dalam Tugas_namaKamu<strong> dengan nama PH.txt</strong>.</li>
+                        <li>Ketikkan Tulisan yang di instruksikan Ibu Hilde</li>
+                        <li>Simpan file tersebut. </li>
+                    </ol>
+                </div>
+
+                <p style="font-size: 13px; color: #718096;">Tunggu instruksi dari Bapak/Ibu Guru untuk pemeriksaan hasil praktik!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // =========================================================================
+        // LINK GOOGLE APPS SCRIPT WEB APP (TEMPEL LINK SCRIPT ANDA DI SINI)
+        // =========================================================================
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmK7AMoLOs-vyaXgOlQQg8FIkL1OLFbQRNr425W7pa2z6G7x8803OHiUAfcOP9fSiCeg/exec";
+
+        // BANK 30 SOAL BERDASARKAN PPT FILE DAN FOLDER KELAS 3 (DENGAN DISTRAKTOR Efektif)
+        const examQuestions = [
+            {
+                question: "1. Manakah pernyataan di bawah ini yang paling tepat menjelaskan tentang File?",
+                options: [
+                    "Wadah berwarna kuning tempat mengumpulkan dokumen",
+                    "Lembaran kertas catatan atau gambar karya yang kita miliki di komputer",
+                    "Nama lemari besar untuk menjalankan mesin komputer",
+                    "Aplikasi untuk mematikan dan menghidupkan komputer"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "2. Ikon berbentuk map berwarna kuning pada komputer dinamakan...",
+                options: ["Document", "File", "Folder", "Drive"],
+                answer: 2 // C
+            },
+            {
+                question: "3. Apa fungsi utama dari dibuatnya Folder di dalam komputer?",
+                options: [
+                    "Membuat file gambar berubah menjadi tulisan",
+                    "Merapikan file-file agar tersusun rapi dan tidak berantakan",
+                    "Menghapus file yang sudah tidak terpakai secara otomatis",
+                    "Melindungi monitor komputer dari debu"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "4. Di bawah ini yang merupakan contoh dari sebuah File Teks adalah...",
+                options: ["NotePad Kelas 3C.txt", "IMG_0081.JPG", "Folder_Budi", "Data (D:)"],
+                answer: 0 // A
+            },
+            {
+                question: "5. Jika kamu melihat file dengan nama 'Contoh File Word.docx', maka file tersebut berisi...",
+                options: ["Gambar lukisan", "Lagu atau musik", "Dokumen tulisan Word", "Folder kosong"],
+                answer: 2 // C
+            },
+            {
+                question: "6. Di dalam komputer, istilah Drive diibaratkan seperti...",
+                options: ["Lemari besar tempat menyimpan folder dan file", "Map plastik kecil tempat menyelipkan kertas", "Lembaran kertas mewarnai", "Pensil warna digital"],
+                answer: 0 // A
+            },
+            {
+                question: "7. Drive C: pada komputer sering disebut sebagai 'Rumah Mesin'. Mengapa kita TIDAK BOLEH menghapus file di Drive C:?",
+                options: [
+                    "Karena Drive C: sangat penuh dengan foto liburan",
+                    "Karena berisi file sistem penting untuk menjalankan program komputer",
+                    "Karena Drive C: akan terkunci otomatis jika dibuka",
+                    "Karena Drive C: adalah folder khusus milik murid lain"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "8. Tempat terbaik dan paling aman bagi siswa untuk menyimpan folder karya dan tugas sekolah adalah di...",
+                options: ["Drive C:", "Drive D:", "Folder Windows", "Program Files"],
+                answer: 1 // B
+            },
+            {
+                question: "9. Di dalam 1 (satu) Folder, kita dapat menyimpan...",
+                options: [
+                    "Hanya 1 file saja",
+                    "Hanya file gambar saja",
+                    "Banyak file tulisan, gambar, dan folder lain sekaligus",
+                    "Hanya file berformat .txt saja"
+                ],
+                answer: 2 // C
+            },
+            {
+                question: "10. File bernama 'IMG_0081.JPG' merupakan jenis file...",
+                options: ["Catatan Teks", "Dokumen Word", "Gambar / Foto", "Folder Tempat Penyimpanan"],
+                answer: 2 // C
+            },
+            {
+                question: "11. Aplikasi sederhana di komputer yang digunakan untuk membuat file catatan berakhiran `.txt` adalah...",
+                options: ["Paint", "Notepad", "WordPad", "Google Chrome"],
+                answer: 1 // B
+            },
+            {
+                question: "12. Manakah di bawah ini yang BUKAN merupakan contoh nama file?",
+                options: ["CatatanHariIni.txt", "Pemandangan.png", "Data (D:)", "TugasSekolah.docx"],
+                answer: 2 // C
+            },
+            {
+                question: "13. Apa yang akan terjadi jika kita menyimpan semua file di layar komputer tanpa dimasukkan ke dalam folder?",
+                options: [
+                    "Layar komputer menjadi berantakan dan file sulit dicari",
+                    "Komputer akan langsung rusak dan mati",
+                    "File akan terhapus otomatis setelah 1 jam",
+                    "File akan berubah warna menjadi kuning"
+                ],
+                answer: 0 // A
+            },
+            {
+                question: "14. Jika Budi membuat folder bernama 'Folder contoh', maka ikon yang muncul berbentuk...",
+                options: ["Kertas putih terlipat", "Map berwarna kuning", "Layar monitor biru", "Gambar pemandangan"],
+                answer: 1 // B
+            },
+            {
+                question: "15. Karakter tulisan tipis di akhir nama file seperti `.txt`, `.docx`, atau `.JPG` dinamakan...",
+                options: ["Nama Folder", "Ekstensi File", "Judul Drive", "Ukuran Komputer"],
+                answer: 1 // B
+            },
+            {
+                question: "16. Folder 'Program Files' berada di dalam Drive C:. Bolehkah kita menghapus folder tersebut?",
+                options: [
+                    "Boleh, supaya komputer jadi kosong",
+                    "Tidak boleh, karena itu folder sistem mesin komputer",
+                    "Boleh, kalau sudah selesai belajar TIK",
+                    "Boleh, atas izin teman sebelah"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "17. Ani ingin menyimpan gambar hasil lukisannya dari Paint. Nama file yang tepat untuk gambar Ani adalah...",
+                options: ["LukisanAni.png", "LukisanAni.txt", "LukisanAni.exe", "LukisanAni.folder"],
+                answer: 0 // A
+            },
+            {
+                question: "18. Tempat menyimpan dokumen yang diibaratkan seperti 'Lemari 2 yang AMAN' di komputer adalah...",
+                options: ["OS (C:)", "Data (D:)", "System32", "Program Data"],
+                answer: 1 // B
+            },
+            {
+                question: "19. Apabila kita membuat folder di dalam folder lain, folder yang berada di dalam tersebut sering disebut...",
+                options: ["Sub-folder / Anak Folder", "File Induk", "Drive Baru", "Program Mesin"],
+                answer: 0 // A
+            },
+            {
+                question: "20. Mengapa file `.txt` dan `.docx` berbeda?",
+                options: [
+                    "Format .txt adalah file gambar, sedangkan .docx adalah file lagu",
+                    "Format .txt dibuat dari Notepad, sedangkan .docx dibuat dari Microsoft Word",
+                    "Format .txt berada di Drive C:, sedangkan .docx di Drive D:",
+                    "Format .txt adalah folder, sedangkan .docx adalah drive"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "21. Manakah tindakan yang benar saat memindahkan file tugas ke komputer sekolah?",
+                options: [
+                    "Menyimpannya langsung di sembarang folder di Drive C:",
+                    "Membuat folder pribadi di Drive D: lalu menyimpan file di dalamnya",
+                    "Menghapus folder sistem agar ada ruang kosong",
+                    "Menyimpan file di Recycle Bin"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "22. Ikon file gambar `.JPG` biasanya menampilkan...",
+                options: ["Gambar cuplikan (thumbnail) dari isi foto tersebut", "Gambar map kuning terkunci", "Tulisan huruf W besar", "Angka jam komputer"],
+                answer: 0 // A
+            },
+            {
+                question: "23. Apa perbedaan utama antara File dan Folder?",
+                options: [
+                    "File adalah tempat menyimpan, Folder adalah isinya",
+                    "File adalah isi dokumen/gambar, Folder adalah map wadahnya",
+                    "File berwarna kuning, Folder berwarna putih",
+                    "File berada di Drive C:, Folder berada di Drive D:"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "24. Pada urutan hirarki penyimpanan yang benar, manakah urutan dari yang paling kecil hingga paling besar?",
+                options: [
+                    "File ➔ Folder ➔ Drive",
+                    "Drive ➔ Folder ➔ File",
+                    "Folder ➔ Drive ➔ File",
+                    "File ➔ Drive ➔ Folder"
+                ],
+                answer: 0 // A
+            },
+            {
+                question: "25. Saat kita menekan tombol 'Save As' di Notepad, langkah pertama yang harus kita lakukan agar file tidak terselip adalah...",
+                options: [
+                    "Mematikan layar komputer",
+                    "Memilih lokasi folder penyimpanan di Drive D:",
+                    "Menghapus nama file",
+                    "Menutup aplikasi"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "26. File bernama 'devlist.txt' dan 'Finish.log' yang ada di Drive C: merupakan contoh...",
+                options: ["Tugas sekolah murid kelas 3", "File sistem mesin komputer", "Gambar foto lukisan", "Folder kosong"],
+                answer: 1 // B
+            },
+            {
+                question: "27. Jika folder dinamai 'Tugas Sekolah', maka di dalam folder tersebut kita bisa memasukkan...",
+                options: [
+                    "Hanya 1 lembar ketikan saja",
+                    "Beberapa file tulisan tugas dan foto kegiatan sekolah",
+                    "Komputer dan keyboard asli",
+                    "Hanya aplikasi Paint"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "28. Gambar ikon yang memiliki simbol huruf 'W' biru menunjukkan bahwa file tersebut berjenis...",
+                options: ["Text Document (.txt)", "Word Document (.docx)", "PNG Image (.png)", "Folder Kuning"],
+                answer: 1 // B
+            },
+            {
+                question: "29. Mengapa kita disarankan memberi nama Folder sesuai dengan isinya (misal: 'Foto Liburan')?",
+                options: [
+                    "Agar ukuran file jadi lebih kecil",
+                    "Agar kita mudah mengenali dan mencari isinya di kemudian hari",
+                    "Agar file di dalamnya tidak bisa dibuka orang lain",
+                    "Agar warna folder berubah merah"
+                ],
+                answer: 1 // B
+            },
+            {
+                question: "30. Setelah menyelesaikan ujian teori ini di browser, langkah selanjutnya yang akan kita lakukan di kelas TIK adalah...",
+                options: [
+                    "Langsung pulang ke rumah",
+                    "Melakukan praktik membuat folder dan file baru di komputer sekolah",
+                    "Menghapus semua file di komputer",
+                    "Membuka Drive C: dan mengubah nama foldernya"
+                ],
+                answer: 1 // B
+            }
+        ];
+
+        // STATE VARIABLE
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(examQuestions.length).fill(null);
+        let studentData = { name: "", class: "", absent: "" };
+
+        // FUNGSI MULAI UJIAN
+        function startExam() {
+            const name = document.getElementById("student-name").value.trim();
+            const studentClass = document.getElementById("student-class").value;
+            const absent = document.getElementById("student-absent").value.trim();
+
+            if (!name || !studentClass || !absent) {
+                alert("⚠️ Harap isi semua Data Identitas Diri (Nama, Kelas, dan Nomor Absen) terlebih dahulu!");
+                return;
+            }
+
+            studentData = { name, class: studentClass, absent };
+
+            document.getElementById("page-start").classList.add("hidden");
+            document.getElementById("page-quiz").classList.remove("hidden");
+
+            document.getElementById("display-student-info").innerText = `${name} (${studentClass}) - No. ${absent}`;
+
+            currentQuestionIndex = 0;
+            renderQuestion();
+        }
+
+        // RENDER SOAL PER HALAMAN
+        function renderQuestion() {
+            const q = examQuestions[currentQuestionIndex];
+            document.getElementById("display-question-number").innerText = `Soal ${currentQuestionIndex + 1} dari ${examQuestions.length}`;
+            document.getElementById("question-text").innerText = q.question;
+
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.innerHTML = "";
+
+            q.options.forEach((optionText, idx) => {
+                const isSelected = userAnswers[currentQuestionIndex] === idx;
+                const optionEl = document.createElement("div");
+                optionEl.className = `option-item ${isSelected ? 'selected' : ''}`;
+                optionEl.onclick = () => selectOption(idx);
+
+                optionEl.innerHTML = `
+                    <input type="radio" name="option" id="opt-${idx}" ${isSelected ? 'checked' : ''}>
+                    <label for="opt-${idx}">${String.fromCharCode(65 + idx)}. ${optionText}</label>
+                `;
+                optionsContainer.appendChild(optionEl);
+            });
+
+            // CONTROL NAVIGATION BUTTONS
+            document.getElementById("btn-prev").style.visibility = currentQuestionIndex === 0 ? "hidden" : "visible";
+            
+            if (currentQuestionIndex === examQuestions.length - 1) {
+                document.getElementById("btn-next").classList.add("hidden");
+                document.getElementById("btn-submit").classList.remove("hidden");
+            } else {
+                document.getElementById("btn-next").classList.remove("hidden");
+                document.getElementById("btn-submit").classList.add("hidden");
+            }
+        }
+
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            renderQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < examQuestions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        // SUBMIT UJIAN (HITUNG & KIRIM TANPA MENAMPILKAN SKOR)
+        function submitExam() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            if (unanswered > 0) {
+                if (!confirm(`Masih ada ${unanswered} soal yang belum dijawab. Yakin ingin menyelesaikan teori sekarang?`)) {
+                    return;
+                }
+            }
+
+            let scoreCount = 0;
+            examQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.answer) {
+                    scoreCount += 1; // Total Benar dari 30 Soal
+                }
+            });
+
+            // Conversion to scale 100
+            let finalScore100 = Math.round((scoreCount / examQuestions.length) * 100);
+
+            document.getElementById("page-quiz").classList.add("hidden");
+            document.getElementById("page-result").classList.remove("hidden");
+
+            sendDataToGoogleSheets(finalScore100, scoreCount);
+        }
+
+        // PROSES KIRIM DATA KE GOOGLE SHEETS
+        function sendDataToGoogleSheets(finalScore, correctCount) {
+        const statusEl = document.getElementById("send-status");
+
+        // Cek jika URL masih bawaan / kosong
+        if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("XXXXXXXXXXXXXXX")) {
+            statusEl.innerText = "⚠️ URL Google Apps Script belum diisi dengan benar.";
+            statusEl.style.color = "#d69e2e";
+            return;
+        }
+
+        statusEl.innerHTML = `<span class="loading-spinner"></span> Menyimpan jawaban ke Google Sheets...`;
+
+        const payload = {
+            timestamp: new Date().toLocaleString("id-ID"),
+            nama: studentData.name,
+            kelas: studentData.class,
+            absen: studentData.absent,
+            nilai: finalScore,
+            benar: `${correctCount} / ${examQuestions.length}`,
+            jawaban: JSON.stringify(userAnswers)
+        };
+
+        // Menggunakan URLSearchParams agar data ter-parse sempurna oleh Apps Script
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            statusEl.innerText = "✅ Jawaban Teori Berhasil Terkirim ke Google Sheet Guru!";
+            statusEl.style.color = "#38a169";
+        })
+        .catch(err => {
+            console.error(err);
+            statusEl.innerText = "❌ Gagal mengirim ke Google Sheet.";
+            statusEl.style.color = "#e53e3e";
+        });
+        }
+    </script>
+</body>
+</html>
